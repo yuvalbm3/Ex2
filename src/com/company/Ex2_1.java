@@ -21,7 +21,7 @@ public class Ex2_1 {
     public static String[] createTextFiles(int n, int seed, int bound){
         String[] filesArray = new String[n];
         Random gen = new Random(seed);
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) { //dhdo
             try {
                 String file_name = "file_" + (i+1) + ".txt";
                 filesArray[i] = file_name;
