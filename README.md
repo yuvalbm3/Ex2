@@ -3,6 +3,13 @@
 ## Overview:
 In this assingment we were asked to create several text files, calculate the total number of lines in these files in three different ways and compare the running times between the methods.
 
+## Threads:
+thread is a computer science concept used in operating systems to describe a running context in an address space. The running mechanism using threads allows the user of the operating system to be provided with response speed and continuity of operation when the process performs several tasks at the same time.
+
+
+## Thread Pool:
+In computer programming, a thread pool is a software design pattern for achieving concurrency of execution in a computer program.  a thread pool maintains multiple threads waiting for tasks to be allocated for concurrent execution. By maintaining a pool of threads, the model increases performance and avoids latency.
+
 structrue:
 
 |Class    |Description|
@@ -43,6 +50,8 @@ Finally we went through the list of results and summed the results to the value 
 
 ### Running times of different methods:
 ![image](https://user-images.githubusercontent.com/93923600/210585012-da9e657b-d846-457b-85e5-bd1ff4008ac9.png)
+
+### conclusions:
 
 ### Collaborators
 - *Noam David*
