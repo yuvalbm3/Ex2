@@ -129,7 +129,17 @@ public class Ex2_1 {
         return lineCount;
     }
 
-//    public static void main(String[] args) throws InterruptedException {
+    public static void delFiles(String[] fileNames){
+        for (String file: fileNames) {
+            File f = new File(file);
+            f.delete();
+        }
+        System.out.println("Files have been deleted!");
+
+    }
+
+
+    public static void main(String[] args) throws InterruptedException {
 //        String[] sd = Ex2_1.createTextFiles(500, 12, 300);
 //        System.out.println(getNumOfLines(sd));
 //        TimeUnit.SECONDS.sleep(2);
@@ -152,5 +162,5 @@ public class Ex2_1 {
 //        System.out.println(getNumOfLinesThreads(sd2));
 //        TimeUnit.SECONDS.sleep(5);
 //        System.out.println(getNumOfLinesThreadPool(sd2));
-//    }
+    }
 }
