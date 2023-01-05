@@ -129,28 +129,28 @@ public class Ex2_1 {
         return lineCount;
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        String[] sd = Ex2_1.createTextFiles(500, 12, 300);
-        System.out.println(getNumOfLines(sd));
-        TimeUnit.SECONDS.sleep(2);
-        System.out.println(getNumOfLinesThreads(sd));
-        TimeUnit.SECONDS.sleep(5);
-        System.out.println(getNumOfLinesThreadPool(sd));
-        System.out.println("----------------------------");
-        TimeUnit.SECONDS.sleep(1);
-        String[] sd1 = Ex2_1.createTextFiles(1000, 12, 300);
-        System.out.println(getNumOfLines(sd1));
-        TimeUnit.SECONDS.sleep(2);
-        System.out.println(getNumOfLinesThreads(sd1));
-        TimeUnit.SECONDS.sleep(5);
-        System.out.println(getNumOfLinesThreadPool(sd1));
-        System.out.println("----------------------------");
-        TimeUnit.SECONDS.sleep(1);
-        String[] sd2 = Ex2_1.createTextFiles(2000, 12, 1000);
-        System.out.println(getNumOfLines(sd2));
-        TimeUnit.SECONDS.sleep(2);
-        System.out.println(getNumOfLinesThreads(sd2));
-        TimeUnit.SECONDS.sleep(5);
-        System.out.println(getNumOfLinesThreadPool(sd2));
-    }
+//    public static void main(String[] args) throws InterruptedException {
+//        String[] sd = Ex2_1.createTextFiles(500, 12, 300);
+//        System.out.println(getNumOfLines(sd));
+//        TimeUnit.SECONDS.sleep(2);
+//        System.out.println(getNumOfLinesThreads(sd));
+//        TimeUnit.SECONDS.sleep(5);
+//        System.out.println(getNumOfLinesThreadPool(sd));
+//        System.out.println("----------------------------");
+//        TimeUnit.SECONDS.sleep(1);
+//        String[] sd1 = Ex2_1.createTextFiles(1000, 12, 300);
+//        System.out.println(getNumOfLines(sd1));
+//        TimeUnit.SECONDS.sleep(2);
+//        System.out.println(getNumOfLinesThreads(sd1));
+//        TimeUnit.SECONDS.sleep(5);
+//        System.out.println(getNumOfLinesThreadPool(sd1));
+//        System.out.println("----------------------------");
+//        TimeUnit.SECONDS.sleep(1);
+//        String[] sd2 = Ex2_1.createTextFiles(2000, 12, 1000);
+//        System.out.println(getNumOfLines(sd2));
+//        TimeUnit.SECONDS.sleep(2);
+//        System.out.println(getNumOfLinesThreads(sd2));
+//        TimeUnit.SECONDS.sleep(5);
+//        System.out.println(getNumOfLinesThreadPool(sd2));
+//    }
 }
