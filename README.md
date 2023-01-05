@@ -33,6 +33,7 @@ structrue:
 + *call:* The call method calculates the sum of the current file and return the sum of lines of a file.
 
 ### UML:
+![image](https://user-images.githubusercontent.com/93923600/210790775-0972bddd-d413-45c2-b342-c57dbd9a6e88.png)
 
 
 ## Explanation of the implementation of the functions:
