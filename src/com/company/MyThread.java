@@ -1,6 +1,6 @@
 package com.company;
 
-class MyThread extends Thread  implements Runnable {
+public class MyThread extends Thread implements Runnable {
     private String fileName;
     int sum=0;
     /**
