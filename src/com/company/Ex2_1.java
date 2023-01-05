@@ -79,11 +79,11 @@ public class Ex2_1 {
             }
             String name= (start+1)+"";
             String fname = "file_"+name+".txt";
-            MyThread t = new MyThread(fname, end+1);
-            t.setName(name);
-            t_list[i] = t;
-//            t.MyThread(fname, end);
-            t.start();
+//            MyThread t = new MyThread(fname, end+1);
+//            t.setName(name);
+//            t_list[i] = t;
+////            t.MyThread(fname, end);
+//            t.start();
         }
         try {
             for (int i = 0; i < t_list.length; i++) {
@@ -98,7 +98,9 @@ public class Ex2_1 {
         return sum;
     }
 
-
+    public static int helper_f(String file){
+        return 0;
+    }
 ////    not suppose to be static
 //    public static int getNumOfLinesThreads(String[] fileNames){
 //        final long startTime = System.currentTimeMillis();
