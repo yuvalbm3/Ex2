@@ -1,30 +1,24 @@
 package com.company;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 class LineCounterTask implements Callable<Integer> {
     private String fileName;
 
+    /**
+     * constructor
+     * @param fileName is the name of the file.
+     */
     public LineCounterTask(String fileName) {
         this.fileName = fileName;
     }
-
-    public Integer call() {
-        int lineCount = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            while (reader.readLine() != null) {
-                lineCount++;
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
-        }
-        return lineCount;
+    /**
+     * call is a function witch return value,
+     * Unlike the run function which does not return a value.
+     * calculate the sum of the current file.
+     * @return the number of lines in file.
+     */
+    public Integer call(){
+        return Ex2_1.helper_f(fileName);
     }
 }
