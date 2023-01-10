@@ -53,7 +53,9 @@ Finally we went through the list of results and summed the results to the value 
 ![image](https://user-images.githubusercontent.com/93923600/210585012-da9e657b-d846-457b-85e5-bd1ff4008ac9.png)
 
 ### conclusions:
-
+It's easy to observe that when we run all the functions together, the running time of getNumOfLines() is relatively high, and because its calculate each file line number separately its makes sense.
+When the file number is relatively low (in our example its 300 files) the ThreadPool is faster than the Thread in observable way. But when the files number became high we can see that sometimes the ThreadPool is higher than the Thread and sometimes not.
+In ThreadPool each Thread suppose to perform multiple tasks. In our ThreadPool each Thread has only one task, so we believe that when there are a lot of threads (and a lot of files) some time in the ThreadPool is wasting on the construction of the ThreadPool itself.
 ### Collaborators
 - *Noam David*
 - *Yuval Bar-Maoz*
