@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 
 public class Ex2_2 {
@@ -92,7 +94,7 @@ public class Ex2_2 {
 
     }
 
-    public static class Task<Object> implements Callable<Object>, Comparable<Task<Object>> {
+    public static class Task<Object> implements Callable<Object>, Comparable<Task<Object>>, Runnable {
         private TaskType tt;
         private int priority;
         private Callable<Object> tasks;
@@ -133,12 +135,6 @@ public class Ex2_2 {
             return "TaskType"+this.tt+"priority"+this.priority;
         }
 
-//        @Override
-//        public int compareTo(Task<Object> o) {
-//            if(o.getPriorityValue()<this.priority){
-//                return this.priority;
-//            }return o.getPriorityValue();
-//        }
         @Override
         public int compareTo(Task<Object> o) {
             if(o.getPriorityValue()<this.getPriorityValue()){
@@ -151,48 +147,106 @@ public class Ex2_2 {
                 return 0;
             }
         }
+
+        @Override
+        public void run() {
+            try {
+                this.tasks.call();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static class CustomExecutor{
         private final int MAX_threads = Runtime.getRuntime().availableProcessors()-1;
         private final int MIN_threads = Runtime.getRuntime().availableProcessors()/2;
-        private final long idle= 3000L;
+        private final long idle= 300L;
+        private int threads_num = MIN_threads + (int)(Math.random() * ((MAX_threads - MIN_threads) + 1));
+        private boolean running = true;
         int maxP=0;
 
         PriorityBlockingQueue<Task> pq;
-        Executor executor;
+        ExecutorService executor;
 
-        public CustomExecutor(){
+        //Constructor
+
+        public CustomExecutor() {
             this.pq= new PriorityBlockingQueue<>();
-            executor= Executors.newFixedThreadPool(MAX_threads);
+            executor= Executors.newFixedThreadPool(threads_num);
         }
+
+        //Add task to the priority list
+
         public void submit(Task<?> t){
-            if(maxP > t.getPriorityValue()){
-                this.maxP = t.getPriorityValue();
+            if(running) {
+                if (maxP > t.getPriorityValue()) {
+                    this.maxP = t.getPriorityValue();
+                }
+                this.pq.add(t);
             }
-            this.pq.add(t);
+            else{
+                System.out.println("The CustomExecutor isn't running anymore.");
+            }
         }
+
+        //Create task from the given parameters and add it to the priority list
+
         public void submit(Callable<?> callable, TaskType tt){
             Task t= new Task(callable,tt);
             submit(t);
         }
+
+        //Create task from the given parameters and add it to the priority list
+
         public void submit(Callable<?> callable){
             Task t= new Task(callable);
             submit(t);
         }
 
+        public void gracefullyTerminate() throws InterruptedException {
+//            List<Ex2_2.Task<?>> tasks = new ArrayList<Ex2_2.Task<?>>();
+            while (!this.pq.isEmpty()) {
+                Task t = this.pq.poll();
+                beforeExecute(this.pq.peek());
+                executor.execute(t);
+            }
+            if (!running){
+                executor.wait();
+                executor.shutdown();
+            }
+        }
+
+        public void beforeExecute(Task<?> t){
+            setCurrentMax(t.getPriorityValue());
+        }
+
+        //set the max priority
+
+        public void setCurrentMax(int cMax){
+            this.maxP = cMax;
+        }
+
+        //get the max priority
+
         public int getCurrentMax(){
             return this.maxP;
         }
 
-        public String toString(){
-            while (!this.pq.isEmpty()) {
-                System.out.println(this.pq.poll());
-            }
-            return this.pq.toString();
-//            System.out.println(this.pq);
+        //shutdown the threads
+
+        public void shutdown(){
+            this.running = false;
         }
 
+        public String toString(){
+//            while (!this.pq.isEmpty()) {
+//                System.out.println(this.pq.poll());
+//            }
+//            return this.pq.toString();
+            System.out.println(this.pq);
+            return this.pq.toString();
+        }
     }
 
 }
