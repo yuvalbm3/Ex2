@@ -58,35 +58,61 @@ public class Ex2_2 {
             StringBuilder sb = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
             return sb.reverse().toString();
         };
-        Task t= new Task(callable1,lev);
-        System.out.println(t);
-        Task t1= new Task(callable2);
-        System.out.println(t1);
+        Callable<String> callable3 = ()-> {
+            StringBuilder sb = new StringBuilder("OOP_ARIEL");
+            return sb.reverse().toString();
+        };
+        Callable<String> callable4 = ()-> {
+            StringBuilder sb = new StringBuilder("TEST TEST TEST");
+            return sb.reverse().toString();
+        };
+        Callable<Integer> callable5 = ()-> {
+            return (int) (10 * Math.pow(5, 5));
+        };
+        Callable<Integer> callable6 = ()-> {
+            return (int) (10 * Math.pow(5, 5));
+        };
         CustomExecutor ce= new CustomExecutor();
+        Task t = new Task(callable3, TaskType.IO);
+        Task t1 = new Task(callable4, TaskType.IO);
+        Task t2 = new Task(callable5, TaskType.COMPUTATIONAL);
+//        other
+        ce.submit(callable2);
+//        computational
+        ce.submit(callable1, lev);
+//        io
         ce.submit(t1);
+//        io
         ce.submit(t);
+//        computational
+        ce.submit(t2);
+//        other
+        ce.submit(callable6);
         System.out.println(ce);
 
     }
 
     public static class Task<Object> implements Callable<Object>, Comparable<Task<Object>> {
-        TaskType tt;
-        int priority;
-        Callable<Object> tasks;
+        private TaskType tt;
+        private int priority;
+        private Callable<Object> tasks;
 
+        //        private constructor
         private Task(Callable<Object> tasks,TaskType tt){
             this.tt=tt;
             this.priority= tt.getPriorityValue();
             this.tasks=tasks;
         }
+
+        //        private constructor
         private Task(Callable<Object> tasks){
             this.tt= TaskType.OTHER;
             this.priority= tt.getPriorityValue();
             this.tasks=tasks;
         }
 
-
-        public Task Factory(Callable<Object> tasks,TaskType tt) {
+        //         factory methode
+        public Task createTask(Callable<Object> tasks, TaskType tt) {
             return new Task(tasks, tt);
         }
 
@@ -95,11 +121,11 @@ public class Ex2_2 {
             return tasks.call();
         }
 
-        public int getPriorityValue(){ //********
+        public int getPriorityValue(){
             return this.priority;
         }
-        
-        public TaskType getTt(){ //********
+
+        public TaskType getTt(){
             return this.tt.getType();
         }
 
@@ -107,11 +133,23 @@ public class Ex2_2 {
             return "TaskType"+this.tt+"priority"+this.priority;
         }
 
+//        @Override
+//        public int compareTo(Task<Object> o) {
+//            if(o.getPriorityValue()<this.priority){
+//                return this.priority;
+//            }return o.getPriorityValue();
+//        }
         @Override
         public int compareTo(Task<Object> o) {
-            if(o.getPriorityValue()<this.priority){
-                return this.priority;
-            }return o.getPriorityValue();
+            if(o.getPriorityValue()<this.getPriorityValue()){
+                return 1;
+            }
+            else if(o.getPriorityValue()>this.getPriorityValue()){
+                return -1;
+            }
+            else {
+                return 0;
+            }
         }
     }
 
@@ -128,25 +166,33 @@ public class Ex2_2 {
             this.pq= new PriorityBlockingQueue<>();
             executor= Executors.newFixedThreadPool(MAX_threads);
         }
-
-        public void submit(Callable<Object> callable, TaskType tt){
+        public void submit(Task<?> t){
+            if(maxP > t.getPriorityValue()){
+                this.maxP = t.getPriorityValue();
+            }
+            this.pq.add(t);
+        }
+        public void submit(Callable<?> callable, TaskType tt){
             Task t= new Task(callable,tt);
-            this.pq.add(t);
+            submit(t);
         }
-        public void submit(Callable<Object> callable){
+        public void submit(Callable<?> callable){
             Task t= new Task(callable);
-            this.pq.add(t);
+            submit(t);
         }
 
-//        public int getMaxPri(Task task){ //***********
-//            for(Task t:pq){
-//                this.maxP= Math.max(task.compareTo(t));
-//            }return max;
-//        }
+        public int getCurrentMax(){
+            return this.maxP;
+        }
 
         public String toString(){
+            while (!this.pq.isEmpty()) {
+                System.out.println(this.pq.poll());
+            }
             return this.pq.toString();
+//            System.out.println(this.pq);
         }
+
     }
 
 }
