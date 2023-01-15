@@ -131,8 +131,6 @@ public class Tests {
             int b = 208573139;
             return a+b;
         });
-
-
         ce.submit(()->{
                     String a = "bla";
                     String b = " & bla";
@@ -142,5 +140,4 @@ public class Tests {
         // The threads done running so the max priority is 0.
         assertEquals(0, ce.getCurrentMax());
     }
-
 }

@@ -64,20 +64,25 @@ public class Ex2_2 {
             this.priority= tt.getPriorityValue();
             this.tasks=tasks;
         }
-
         /**
-         *  Private constructor
-         * @param tasks - An operation that may return a value - callable.
+         * This is a factory method.
+         * @param tasks get a callable task to do.
+         * @param <V> get a generic object to return.
+         * @return new task object.
          */
         public static <V> Task<V> createTask (Callable<V> tasks){
         return new Task(tasks, TaskType.OTHER);
         }
-
-        //factory methode
+        /**
+         * This is a factory method.
+         * @param tasks get a callable task to do.
+         * @param tt get the priority of the new task.
+         * @param <V> get a generic object to return.
+         * @return new task object.
+         */
         public static <V> Task<V> createTask(Callable<V> tasks, TaskType tt) {
             return new Task(tasks, tt);
         }
-
 
         @Override
         public V call() throws Exception {
@@ -91,9 +96,7 @@ public class Ex2_2 {
         public String toString(){
             return "TaskType"+this.tt+"priority"+this.priority;
         }
-
         /**
-         *
          * @param o - A Task instance for comparing in order to create priority queue
          * @return integer value base on the comparison
          */
@@ -112,7 +115,7 @@ public class Ex2_2 {
         public TaskType getTaskType(){
             return this.tt;
         }
-        public int getPrioraty(){
+        public int getPriority(){
             return this.priority;
         }
     }
@@ -134,7 +137,7 @@ public class Ex2_2 {
          * The function add task to the priority list
          * @param t - the Task which is going to be added to the priority queue
          * @param <V> the generic value that Task class get.
-         * @return
+         * @return the task.
          */
         public <V> Task<V> submit(Task<V> t){
             try {
@@ -155,44 +158,37 @@ public class Ex2_2 {
                 return null;
             }
         }
-        //Complete the javadoc#####################################################################
         /**
          * The function create task from the given parameters and add it to the priority list
-         * @param callable
-         * @param tt
-         * @param <V>
-         * @return
+         * @param callable get a callable task to do.
+         * @param tt get the priority of the new task.
+         * @param <V> the generic value that Task class get.
+         * @return new Task.
          */
         public <V> Future<V> submit(Callable<V> callable, TaskType tt){
             return submit(Task.createTask(callable, tt));
         }
-
-        //Complete the javadoc#####################################################################
         /**
          * The methode create task from the given parameters and add it to the priority list
-         * @param callable
-         * @param <V>
-         * @return
+         * @param callable get a callable task to do.
+         * @param <V> the generic value that Task class get.
+         * @return new task.
          */
         public <V> Future<V> submit(Callable<V> callable){
             return submit(Task.createTask(callable, TaskType.OTHER));
         }
-
-        //Complete the javadoc#####################################################################
         /**
          * The methode set the maxPriorityValue of the next item in queue before the execute
          * @param t - the Task with the maximum priority
-         * @param <V>
+         * @param <V> the generic value that Task class get.
          */
         public <V> void beforeExecute(Task<V> t){
             this.maxP = t.getPriorityValue();
         }
-
         //get the max priority
         public int getCurrentMax(){
             return this.maxP;
         }
-
         //shutdown the threads
         public void gracefullyTerminate(){
             executor.shutdown();
