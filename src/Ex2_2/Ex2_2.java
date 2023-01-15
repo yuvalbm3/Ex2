@@ -66,14 +66,23 @@ public class Ex2_2 {
         }
 
         /**
-         *  Private constructor
+         * Factory methode
          * @param tasks - An operation that may return a value - callable.
+         * @param <V> - the generic value that Task class get.
+         * @return new Task created with the parameters
          */
         public static <V> Task<V> createTask (Callable<V> tasks){
-        return new Task(tasks, TaskType.OTHER);
+            return new Task(tasks, TaskType.OTHER);
         }
 
-        //factory methode
+
+        /**
+         * Factory methode
+         * @param tasks - An operation that may return a value - callable.
+         * @param tt - TaskType
+         * @param <V> - the generic value that Task class get.
+         * @return new Task created with the parameters
+         */
         public static <V> Task<V> createTask(Callable<V> tasks, TaskType tt) {
             return new Task(tasks, tt);
         }
@@ -133,7 +142,7 @@ public class Ex2_2 {
         /**
          * The function add task to the priority list
          * @param t - the Task which is going to be added to the priority queue
-         * @param <V> the generic value that Task class get.
+         * @param <V> - the generic value that Task class get.
          * @return
          */
         public <V> Task<V> submit(Task<V> t){
